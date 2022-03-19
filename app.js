@@ -1,10 +1,9 @@
 const express = require('express');
 
-const swaggerUi = require('swagger-ui-express');
-const swaggerDoc = require('./swagger.json');
 const bodyParser = require('body-parser');
 const errorController = require('./controllers/error');
 const PORT = process.env.PORT || 3000
+const path = require('path');
 
 const quoteRoutes = require('./routes/quotes');
 
@@ -19,6 +18,26 @@ app.use((req, res, next) => {
 })
 
 app.use('/quotes', quoteRoutes);
+//swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerDoc = require('swagger-jsdoc');
+const swaggerEspec = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Vehicle Transport Estimator API",
+            version:"1.0.0"
+        },
+        servers: [
+            {
+                url: "http://localhost:3000"
+            }
+        ]
+    },
+    apis: [`${path.join(__dirname, "./routes/*.js")}`],
+}
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc(swaggerEspec)));
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 
