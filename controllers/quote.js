@@ -15,10 +15,24 @@ exports.createQuote = (req, res, next) => {
     res.status(201).json({
         message: 'Quote created successfully!',
         route: {
-            id: new Date().toISOString(),
+            quoteId: new Date().toISOString(),
             model: model,
             distance: distance,
             value: value
         }
     });
 }
+
+exports.getEstimate = (req, res, next) => {
+    //Need to get these values from the database, hard coded for now.
+    const distance = 1000;
+    const ppm = .5;
+    const value = 80000;
+    const insurance = .01
+    let total = (distance * ppm) + (value * insurance);
+
+    // Return the total price.
+    res.status(200).json({
+        quote: [{ total: total }]
+    });
+};

@@ -8,5 +8,7 @@ router.get('/quote', quoteController.getQuote);
 
 router.post('/new', quoteController.createQuote);
 
+router.get('/estimate', quoteController.getEstimate);
+
 
 module.exports = router;
