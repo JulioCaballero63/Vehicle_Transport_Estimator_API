@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config(); // import config values
+
+const SECRET = process.env.SECRET;
 
 module.exports = (req, res, next) => {
 
@@ -21,7 +24,7 @@ module.exports = (req, res, next) => {
     let decodedToken;
 
     try{
-        decodedToken = jwt.verify(token, 'somedevelopercreatedsecretusedtosignthetoken'); // same secret created in login middleware of auth controller
+        decodedToken = jwt.verify(token, SECRET); // same secret created in login middleware of auth controller
 
     } catch(err){
         err.statusCode = 500;

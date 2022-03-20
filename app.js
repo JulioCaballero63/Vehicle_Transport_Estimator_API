@@ -2,7 +2,9 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 const errorController = require('./controllers/error');
-const PORT = process.env.PORT || 3000
+require('dotenv').config(); // import config values
+
+const PORT = process.env.PORT || PORT
 const path = require('path');
 
 const quoteRoutes = require('./routes/quotes');

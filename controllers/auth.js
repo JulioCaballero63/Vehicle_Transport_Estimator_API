@@ -1,8 +1,12 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config(); // import config values
+
+const SECRET = process.env.SECRET;
 
 const User = require('../models/user'); // get the model and in there, the user schema
+
 
 exports.signup = (req, res, next) => {
 
@@ -95,7 +99,7 @@ exports.login = (req, res, next) => {
                     email: loadedUser.email,
                     userId: loadedUser._id.toString() 
                 }, 
-                'somedevelopercreatedsecretusedtosignthetoken', // 'secret | developer generated string to sign token'
+                SECRET, // 'secret | developer generated string to sign token'
                 {expiresIn:'1h'}
             );
 
