@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3000
 const path = require('path');
 
 const quoteRoutes = require('./routes/quotes');
+const authRoutes = require('./routes/auth'); // authentication routes| Steven
 
 const app = express();
 app.use(bodyParser.json()); // application/json
@@ -18,6 +19,8 @@ app.use((req, res, next) => {
 })
 
 app.use('/quotes', quoteRoutes);
+app.use('/auth', authRoutes); // use authentication routes | Steven
+
 //swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDoc = require('swagger-jsdoc');
