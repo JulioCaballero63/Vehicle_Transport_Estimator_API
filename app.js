@@ -13,6 +13,16 @@ const authRoutes = require('./routes/auth'); // authentication routes| Steven
 const app = express();
 app.use(bodyParser.json()); // application/json
 
+// more elegant way to handle all errors
+app.use((error, req, res, next)=>{
+  
+    const status = error.statusCode || 500;
+    const message = error.message;
+  
+    res.status(status).json({message:message}); // return the error to the user
+  
+});
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
